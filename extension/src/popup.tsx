@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 
 import "./styles.css"
 
+import { AuthForm } from "~components/auth-form"
 import { LogoutButton } from "~components/log-out-btn"
 import { useFirebaseUser } from "~hooks/firebase-user"
 
@@ -24,24 +25,16 @@ function IndexPopup() {
     getCurrentUrl()
   }, [])
 
-  useEffect(() => {
-    if (user || isLoading) return
-    chrome.runtime.openOptionsPage(() => {
-      window.close()
-    })
-  }, [user, isLoading])
-
   return (
     <div className="w-[400px] h-[300px] flex flex-col items-center justify-center">
-      {window.location.href}
-      {url && <p>Current URL: {url}</p>}
-      {user && (
+      {user ? (
         <>
           <p>Logged in as {user.email}</p>
           <LogoutButton />
         </>
+      ) : (
+        <AuthForm />
       )}
-      {isLoading && <p>Loading...</p>}
     </div>
   )
 }

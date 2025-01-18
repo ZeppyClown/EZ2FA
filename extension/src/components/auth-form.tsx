@@ -43,7 +43,7 @@ export function AuthForm() {
 
       e.preventDefault()
 
-      const user = await createUserWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(auth, email, password)
       onLogin()
     } catch (error: any) {
       console.log(error.message)
@@ -55,7 +55,7 @@ export function AuthForm() {
   }
 
   return (
-    <div className="max-w-md mx-auto p-2 flex flex-col gap-2 rounded-md border-gray-300 border-2">
+    <div className="w-full h-full p-2 flex flex-col gap-2 rounded-md border-gray-300 border-2">
       <h1 className="text-xl font-bold text-center">
         {showLogin ? "Login" : "Sign Up"}
       </h1>
