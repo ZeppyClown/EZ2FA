@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 function IndexPopup() {
-  const [data, setData] = useState("")
+  const [url, setUrl] = useState("")
 
   useEffect(() => {
     const getCurrentUrl = async () => {
@@ -10,9 +10,9 @@ function IndexPopup() {
         currentWindow: true
       })
 
-      const orign = new URL(tab.url).origin
+      const origin = new URL(tab.url).origin
 
-      console.log("Current URL: ", orign)
+      setUrl(origin)
     }
 
     getCurrentUrl()
@@ -30,7 +30,7 @@ function IndexPopup() {
         </a>{" "}
         Extension!
       </h2>
-      <input onChange={(e) => setData(e.target.value)} value={data} />
+      {url && <p>Current URL: {url}</p>}
       <a href="https://docs.plasmo.com" target="_blank">
         View Docs
       </a>
