@@ -2,8 +2,12 @@ import { useEffect, useState } from "react"
 
 import "./styles.css"
 
+import { AuthForm } from "~components/auth-form"
+import { useFirebaseUser } from "~hooks/firebase-user"
+
 function IndexPopup() {
   const [url, setUrl] = useState("")
+  const { user } = useFirebaseUser()
 
   useEffect(() => {
     const getCurrentUrl = async () => {
@@ -21,21 +25,9 @@ function IndexPopup() {
   }, [])
 
   return (
-    <div
-      style={{
-        padding: 16
-      }}>
-      <h2 className="text-purple-700">
-        Welcome to your{" "}
-        <a href="https://www.plasmo.com" target="_blank">
-          Plasmo
-        </a>{" "}
-        Extension!
-      </h2>
+    <div className="w-[400px] h-[300px] flex flex-col items-center justify-center">
       {url && <p>Current URL: {url}</p>}
-      <a href="https://docs.plasmo.com" target="_blank">
-        View Docs
-      </a>
+      {!user ? <AuthForm /> : null}
     </div>
   )
 }
