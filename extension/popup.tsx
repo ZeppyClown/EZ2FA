@@ -1,7 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function IndexPopup() {
   const [data, setData] = useState("")
+
+  useEffect(() => {
+    const getCurrentUrl = async () => {
+      const [tab] = await chrome.tabs.query({
+        active: true,
+        currentWindow: true
+      })
+
+      const orign = new URL(tab.url).origin
+
+      console.log("Current URL: ", orign)
+    }
+
+    getCurrentUrl()
+  }, [])
 
   return (
     <div
