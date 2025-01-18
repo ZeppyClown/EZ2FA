@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 
+import "./styles.css"
+
 function IndexPopup() {
   const [url, setUrl] = useState("")
 
@@ -23,7 +25,7 @@ function IndexPopup() {
       style={{
         padding: 16
       }}>
-      <h2>
+      <h2 className="text-purple-700">
         Welcome to your{" "}
         <a href="https://www.plasmo.com" target="_blank">
           Plasmo
