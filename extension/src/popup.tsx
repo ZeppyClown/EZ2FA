@@ -25,6 +25,14 @@ function IndexPopup() {
     getCurrentUrl()
   }, [])
 
+  if (isLoading) {
+    return (
+      <div className="w-[400px] h-[300px] flex flex-col items-center justify-center">
+        <p>Loading</p>
+      </div>
+    )
+  }
+
   return (
     <div className="w-[400px] h-[300px] flex flex-col items-center justify-center">
       {user ? (
