@@ -15,15 +15,20 @@ export function AuthForm() {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [password, setPassword] = useState("")
   const { isLoading, onLogin } = useFirebaseUser()
+  const [err, setErr] = useState<string>(null)
 
   const signIn = async (e: any) => {
-    if (!email || !password)
-      return console.log("Please enter email and password")
+    if (!email || !password){
+      setErr("Please enter your email and password")
+      return 
+    }
 
     e.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, email, password)
+      setErr(null)
     } catch (error: any) {
+      setErr("Your email or password is wrong")
       console.log(error.message)
     } finally {
       setEmail("")
@@ -36,6 +41,7 @@ export function AuthForm() {
   const signUp = async (e: any) => {
     try {
       if (!email || !password || !confirmPassword)
+        
         return console.log("Please enter email and password")
 
       if (password !== confirmPassword)
@@ -46,6 +52,7 @@ export function AuthForm() {
       await createUserWithEmailAndPassword(auth, email, password)
       onLogin()
     } catch (error: any) {
+      setErr("Your password are not matching")
       console.log(error.message)
     } finally {
       setEmail("")
@@ -66,6 +73,7 @@ export function AuthForm() {
         onChange={(e) => setEmail(e.target.value)}
         className="p-2 border-gray-300 border-2 rounded-md"
       />
+      
       <input
         type="password"
         placeholder="Password"
@@ -73,6 +81,8 @@ export function AuthForm() {
         onChange={(e) => setPassword(e.target.value)}
         className="p-2 border-gray-300 border-2 rounded-md"
       />
+  
+      
       {!showLogin && (
         <input
           type="password"
@@ -82,6 +92,8 @@ export function AuthForm() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       )}
+
+      <p className="text-red-500 text-xs italic">{err}</p>
       <button
         onClick={showLogin ? signIn : signUp}
         className="p-2 bg-blue-500 text-white rounded-md"
@@ -89,7 +101,10 @@ export function AuthForm() {
         {showLogin ? "Login" : "Sign Up"}
       </button>
       <button
-        onClick={() => setShowLogin(!showLogin)}
+        onClick={() => {
+           setShowLogin(!showLogin)
+           setErr(null)
+        }}
         className="p-2 text-blue-500 bg-white rounded-md border-blue-500 border-2">
         {showLogin ? "Sign Up" : "Login"}
       </button>
