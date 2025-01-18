@@ -1,13 +1,16 @@
+// src/options.tsx
 import { AuthForm } from "~components/auth-form"
+import { useFirebaseUser } from "~hooks/firebase-user"
 
 import "./styles.css"
 
-function OptionsPage() {
+export default function Options() {
+  const { user, onLogout } = useFirebaseUser()
+
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center">
-      <AuthForm />
+    <div className="mt-8">
+      {!user && <AuthForm />}
+      {user && <button onClick={onLogout}>Logout</button>}
     </div>
   )
 }
-
-export default OptionsPage

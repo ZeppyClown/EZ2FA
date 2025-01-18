@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 
 import "./styles.css"
 
-import { AuthForm } from "~components/auth-form"
 import { useFirebaseUser } from "~hooks/firebase-user"
 
 function IndexPopup() {
@@ -35,7 +34,6 @@ function IndexPopup() {
     <div className="w-[400px] h-[300px] flex flex-col items-center justify-center">
       {window.location.href}
       {url && <p>Current URL: {url}</p>}
-      {!user ? <AuthForm /> : null}
     </div>
   )
 }
