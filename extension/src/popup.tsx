@@ -24,8 +24,16 @@ function IndexPopup() {
     getCurrentUrl()
   }, [])
 
+  useEffect(() => {
+    if (user) return
+    chrome.runtime.openOptionsPage(() => {
+      window.close()
+    })
+  }, [user])
+
   return (
     <div className="w-[400px] h-[300px] flex flex-col items-center justify-center">
+      {window.location.href}
       {url && <p>Current URL: {url}</p>}
       {!user ? <AuthForm /> : null}
     </div>
